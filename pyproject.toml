@@ -1,0 +1,88 @@
+[project]
+name = "healthcare-analytics"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11.5"
+dependencies = [
+    "langchain>=0.3.25",
+    "langchain-openai>=0.3.18",
+    "numpy>=1.26.0",
+    "python-docx>=1.1.0",
+    "python-dotenv>=1.1.0",
+    "ruff>=0.11.11",
+    "scipy>=1.15.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+]
+
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+exclude = '''
+/(
+    \.git
+  | \.venv
+  | \.direnv
+  | _build
+  | build
+  | dist
+  | \.env
+  | \.vscode
+  | \.cache
+  | github
+  | __pycache__
+  | .cloudignore
+)/
+'''
+
+[tool.isort]
+py_version = "38"
+line_length = 88
+lines_after_imports = 2
+lines_between_sections = 1
+multi_line_output = 3
+force_grid_wrap = 0
+include_trailing_comma = "true"
+combine_as_imports = "true"
+use_parentheses = "true"
+skip = ["./docs", ".direnv"]
+skip_glob = ["*/__init__.py"]
+skip_gitignore = "true"
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+default_section = "THIRDPARTY"
+
+[tool.pytest.ini_options]
+minversion = "6.1"
+addopts = "--cov"
+testpaths = ["tests_unit"]
+
+
+[tool.ruff.lint]
+# Roughly follow order on https://docs.astral.sh/ruff/rules/
+select = [
+    #    "F",
+    #    "E",
+    #    "W",
+    "I",
+    "F401",
+    #    "C",
+]
+ignore = [
+    "E501",
+    "ISC001",
+    "PERF203", # Should be disabled on Python 3.11 but Ruff seems to not do it yet
+    "PGH003",  # Should hopefully be obvious, otherwise too tedious
+    "S101",    # We sometimes use assert for type checker reasons
+    "S405",    # We use etree on trusted input and the check on the parsing entrypoints is enough
+    "FURB118", # Has false positives
+    "FURB140", # starmap is fine but comprehensions also are
+    "PLW2901", # There are enough reasons to want to reassign to loop vars
+]
+fixable = ["ALL"]
+preview = true
