@@ -45,7 +45,7 @@ guide it.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/meipekci/api-learning.git
+   git clone https://github.com/meipekci/pe-diagnosis-llm.git
    ```
 
 2. Install [`uv`](https://docs.astral.sh/uv/) (Python package/environment manager):
